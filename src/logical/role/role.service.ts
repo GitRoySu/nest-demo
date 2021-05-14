@@ -16,7 +16,6 @@ export class RoleService {
   async findAll(query:any):Promise<any>{
     // 过滤空的入参
     let queryReq = dealObjectEmptyValue(query)
-    console.log(queryReq)
     // let roleList = await getRepository({...query})
     //   .createQueryBuilder('role')
     //   .where("role.id = :id", {id: query.id})
