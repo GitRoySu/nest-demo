@@ -10,7 +10,7 @@ export class RoleController {
   constructor(private readonly roleService: RoleService) {
   }
 
-  // @UseGuards(AuthGuard("jwt")) // 使用 'JWT' 进行验证
+  @UseGuards(AuthGuard("jwt")) // 使用 'JWT' 进行验证
   @Post("add")
   add(@Body() body: AddRoleDto) {
     return this.roleService.add(body.roleName);

@@ -6,7 +6,7 @@ import {logger} from './middleware/logger.middleware'
 import * as express from 'express'
 import { TransformInterceptor } from "./interceptor/transform.interceptor";
 import { HttpExceptionFilter } from "./filter/http-exception.filter";
-import { AnyExceptionFilter } from "./filter/any-exception.filter";
+import { AllExceptionsFilter } from "./filter/any-exception.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +16,7 @@ async function bootstrap() {
   // 全局拦截器打印出参
   app.useGlobalInterceptors(new TransformInterceptor())
   // 过滤器处理HTTP异常
-  app.useGlobalFilters(new AnyExceptionFilter())
+  app.useGlobalFilters(new AllExceptionsFilter())
   app.useGlobalFilters(new HttpExceptionFilter())
   // 全局注入校验管道
   app.useGlobalPipes(new ValidationPipe({
@@ -29,6 +29,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('test')
     .build()
+  // swagger api文档
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('api-doc', app, document)
   await app.listen(3000);
