@@ -6,21 +6,21 @@ import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('role')
 @Controller("role")
+@UseGuards(AuthGuard('jwt')) // 使用 'JWT' 进行验证
 export class RoleController {
   constructor(private readonly roleService: RoleService) {
   }
 
-  @UseGuards(AuthGuard("jwt")) // 使用 'JWT' 进行验证
   @Post("add")
   add(@Body() body: AddRoleDto) {
     return this.roleService.add(body.roleName);
   }
 
+
   @Post("setUserRole")
   setUserRole(@Body() body: any) {
     return this.roleService.setUserRole(body);
   }
-
 
   @Get("getList")
   findAll(@Query() query: GetRoleList) {
